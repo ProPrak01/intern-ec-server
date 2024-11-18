@@ -9,9 +9,9 @@ const generateToken = (id) => {
 
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password, phone, role = 'Partner' } = req.body;
+        const { name, email, password, phone, role = 'Partner', status = 'active' } = req.body;
         
-        // Check if user exists by email or phone
+        // Check if user exists
         const userExists = await User.findOne({ 
             $or: [{ email }, { phone }] 
         });
@@ -30,7 +30,7 @@ const registerUser = async (req, res) => {
             password,
             phone,
             role,
-            status: 'inactive',
+            status,
             lastActive: new Date()
         });
 
@@ -77,4 +77,32 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser }; 
+const activateUser = async (req, res) => {
+    try {
+        const user = await User.findByIdAndUpdate(
+            req.params.id,
+            { status: 'active' },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found',
+                success: false
+            });
+        }
+
+        res.json({
+            message: 'User activated successfully',
+            success: true,
+            user
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+            success: false
+        });
+    }
+};
+
+module.exports = { registerUser, loginUser, activateUser }; 
