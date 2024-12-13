@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+import jwt from 'jsonwebtoken'
+import User from '../models/userModel.js'
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -7,7 +7,7 @@ const generateToken = (id) => {
     });
 };
 
-const registerUser = async (req, res) => {
+export const registerUser = async (req, res) => {
     try {
         const { name, email, password, phone, role = 'Partner', status = 'active' } = req.body;
         
@@ -49,7 +49,7 @@ const registerUser = async (req, res) => {
     }
 };
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -77,7 +77,7 @@ const loginUser = async (req, res) => {
     }
 };
 
-const activateUser = async (req, res) => {
+export const activateUser = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(
             req.params.id,
@@ -105,4 +105,4 @@ const activateUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, activateUser }; 
+//module.exports = { registerUser, loginUser, activateUser }; 

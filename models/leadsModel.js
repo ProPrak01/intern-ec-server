@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 const LeadsSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
@@ -23,12 +22,29 @@ const LeadsSchema = new mongoose.Schema(
       enum: ["high", "medium", "low"],
       default: "medium",
     },
-    assignedAdmin: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
-    assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
-    assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null },
-    reference: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    assignedAdmin: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+    assignedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+    reference: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Leads", LeadsSchema); 
+const Leads = mongoose.model("Leads", LeadsSchema);
+export default Leads;

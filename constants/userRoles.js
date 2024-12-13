@@ -1,8 +1,11 @@
-const USER_ROLES = {
-    SUPER_ADMIN: 'SuperAdmin',
-    ADMIN: 'Admin',
-    COUNSELLOR: 'Counsellor',
-    PARTNER: 'Partner'
-};
+export const SUPER_ADMIN = "SuperAdmin";
+export const ADMIN = "Admin";
+export const COUNSELLOR = "Counsellor";
+export const PARTNER = "Partner";
 
-module.exports = USER_ROLES; 
+export const USER_ROLES = {
+  SUPER_ADMIN,
+  ADMIN,
+  COUNSELLOR,
+  PARTNER,
+};
